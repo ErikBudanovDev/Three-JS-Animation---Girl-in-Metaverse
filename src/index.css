@@ -10,3 +10,9 @@
     margin: 0;
     box-sizing: border-box;
 }
+
+.rocket {
+    position: absolute;
+    width: 100px;
+    transition: transform 0.2s; 
+}

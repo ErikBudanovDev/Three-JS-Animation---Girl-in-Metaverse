@@ -1,20 +1,23 @@
 import { Canvas, useLoader } from "@react-three/fiber";
-import { Suspense, useRef } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
+import img from '../../assets/stars.png'
+import rocketImg from '../../assets/wp.png'
 import {
   PerspectiveCamera,
   OrbitControls,
 } from "@react-three/drei";
 import * as THREE from "three";
 import FloatingIntems from "./FloatingItems";
-// const img = require("./meta.jpg");
+import { FlyingRockets } from "../loadingPage/flyingRockets";
+
 const angleToRadianse = (angleInDeg) => (Math.PI / 180) * angleInDeg;
 // console.log(img);
 
 export function Three() {
   const OrbitControlsRef = useRef(null);
-  const textureLady = useLoader(THREE.TextureLoader, "../src/assets/digiLady.png");
-  const bckgrnd1 = useLoader(THREE.TextureLoader, "../src/assets/bckgrnd2.png");
-  const bckgrnd2 = useLoader(THREE.TextureLoader, "../src/assets/bckgrnd.png");
+  const textureLady = useLoader(THREE.TextureLoader, "../src/assets/digiLady_Flipped.png");
+  const bckgrnd1 = useLoader(THREE.TextureLoader, "../src/assets/bckgrnd2_Flipped.png");
+  const bckgrnd2 = useLoader(THREE.TextureLoader, "../src/assets/bckgrnd_Flipped.png");
 
   const stars = useLoader(THREE.TextureLoader, "../src/assets/stars.png");
 
@@ -71,7 +74,8 @@ export function Three() {
       {/* Lady */}
       <sprite
         position={[0, -0.5, 0]}
-        scale={[1.4, 1.4, 0]}
+        // scale={[1.4, 1.4, 0]}
+        scale={[-1.4, 1.4, 0]}
       >
         <spriteMaterial
           map={textureLady}
@@ -128,6 +132,23 @@ export function Three() {
 }
 
 export default function CanvasComponent() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Here you can simulate loading your assets with a timeout
+    // In a real app, you would load models, textures, etc. and then set isLoaded to true
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 1500); // simulates a 3 second load time
+
+    // Clean up the timer when the effect is re-run or the component is unmounted
+    return () => clearTimeout(timer);
+  }, []);
+
+ if (!isLoaded) {
+    // While isLoaded is false, show the loading GIF
+    return <FlyingRockets/>;
+  }
   return (
     <Suspense fallback={null}>
       <Canvas id="three-canvas-container" shadows>

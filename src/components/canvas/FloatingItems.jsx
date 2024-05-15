@@ -2,6 +2,7 @@ import { useLoader, useFrame } from "@react-three/fiber";
 import {  useRef } from "react";
 
 import * as THREE from "three";
+// import TextMesh from "./TextMeshComponent";
 
 export default function FloatingIntems() {
   const meshRef1 = useRef();
@@ -449,7 +450,7 @@ export default function FloatingIntems() {
         <meshBasicMaterial color={"#9A86F8"} side={THREE.DoubleSide} transparent={true}/>
       </mesh> 
 
-
+      {/* <TextMesh text="Hi Erik" position={[0, 0, 0.06]} /> Adjust position and rotation as needed */}
       <mesh position={[0, -0.41, 0]}  ref={meshRef26} >
         <cylinderGeometry
           args={[1.09221, 1.09221, 0.1, 10, 5, true, 0, 0.65]}
